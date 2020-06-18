@@ -1,21 +1,27 @@
 package main
 
 import (
+	"GoApi/controller"
+	"GoApi/http"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 )
 
+var (
+	postController controller.PostController = controller.NewPostController()
+	httpRouter     router.Router             = router.NewMuxRouter()
+)
+
 func main() {
-	router := mux.NewRouter()
+
 	const port string = ":3500"
-	router.HandleFunc("/", func(resp http.ResponseWriter, req *http.Request) {
+	httpRouter.GET("/", func(resp http.ResponseWriter, req *http.Request) {
 		fmt.Fprint(resp, "up")
 	})
-	router.HandleFunc("/posts", getPosts).Methods("GET")
-	router.HandleFunc("/posts", addPost).Methods("POST")
+	httpRouter.GET("/posts", postController.GetPosts)
+	httpRouter.POST("/posts", postController.AddPost)
 	log.Println("listenning on port : ", port)
-	log.Fatal(http.ListenAndServe(port, router))
+	httpRouter.SERVE(port)
 
 }
