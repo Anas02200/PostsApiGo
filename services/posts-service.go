@@ -9,7 +9,7 @@ import (
 
 var (
 	//posts []entity.Post
-	repo repository.PostRepository = repository.NewFirestoreRepository()
+	repo repository.PostRepository
 )
 
 type PostService interface {
@@ -42,6 +42,7 @@ func (*service) FindAll() ([]entity.Post, error) {
 	return repo.FindAll()
 }
 
-func NewPostService() PostService {
+func NewPostService(repository repository.PostRepository) PostService {
+	repo = repository
 	return &service{}
 }

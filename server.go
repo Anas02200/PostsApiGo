@@ -3,14 +3,18 @@ package main
 import (
 	"GoApi/controller"
 	"GoApi/http"
+	"GoApi/repository"
+	"GoApi/services"
 	"fmt"
 	"log"
 	"net/http"
 )
 
 var (
-	postController controller.PostController = controller.NewPostController()
-	httpRouter     router.Router             = router.NewMuxRouter()
+	postRepository repository.PostRepository = repository.NewFirestoreRepository()
+	PostService    services.PostService      = services.NewPostService(postRepository)
+	postController controller.PostController = controller.NewPostController(PostService)
+	httpRouter     router.Router             = router.NewChiRouter()
 )
 
 func main() {
