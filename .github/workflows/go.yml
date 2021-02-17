@@ -44,7 +44,6 @@ jobs:
         uses: docker/build-push-action@v2.2.2
         with:
           push: true
-          context : .
-          tags: anasrafa/repo1:goApi2
+          tags: anasrafa/repo1:goapi2
       
   
