@@ -32,7 +32,7 @@ jobs:
       - name: Docker Hub Sign-in
         run: docker login -u ${{secrets.DOCKERHUB_NAME }} -p ${{ secrets.DOCKERHUB_KEY}}
       - name: Building Docker Image
-        run: docker build -t anasrafa/repo1:latest 
+        run: docker build -t anasrafa/repo1:latest -t anasrafa/repo1:${GITHUB_RUN_ID} .
       - name: Publish Docker Image
         run: docker push anasrafa/repo1
       
