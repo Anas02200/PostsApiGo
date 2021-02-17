@@ -44,6 +44,6 @@ jobs:
         uses: docker/build-push-action@v2.2.2
         with:
           push: true
-          tags: anasrafa/goApi:latest
+          tags: anasrafa/goApi:latest 
           
   
